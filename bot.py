@@ -64,12 +64,12 @@ def scrolling_down_facebook(limit, main_element):
         scroll_down()
         try:
             if limit and limit <= len(driver.find_elements_by_class_name(main_element)):
-                break
+                return True
             new_page = driver.page_source
             if new_page != old_page:
                 old_page = new_page
             else:
-                break
+                return False
         except Exception:
             continue
 
