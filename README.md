@@ -1,2 +1,2 @@
 # facebook-members
-Get member of group facebook
+Get members of group facebook
