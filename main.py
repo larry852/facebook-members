@@ -57,12 +57,12 @@ def remove_duplicates(filename):
     with open(filename) as file:
         data = json.loads(file.read().replace('][', ','))
         unique_members = {each['id']: each for each in data}.values()
-    with open(filename, 'w') as outfile:
-        json.dump(list(unique_members), outfile, sort_keys=True, indent=4)
+    with open(filename, 'w', encoding='utf8') as outfile:
+        json.dump(list(unique_members), outfile, sort_keys=True, indent=4, ensure_ascii=False)
 
 
 if __name__ == '__main__':
-    # login_facebook()
-    # get_members()
-    # bot.close()
-    remove_duplicates('members-2018-09-24 18:12:58.812634.json')
+    login_facebook()
+    get_members()
+    bot.close()
+    # remove_duplicates('members-2018-09-24 18:12:58.812634.json')
