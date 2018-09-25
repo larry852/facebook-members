@@ -18,11 +18,10 @@ def login_facebook(username='lady.cris.16@hotmail.com', password='asu1053608972c
 
 def get_members(id_group='5347104545'):
     start = datetime.now()
-    members = []
     old_information = []
     active = True
     limit = 50
-    filename = 'members[{}][{}].json'.format(id_group, str(datetime.now()).split('.')[0])
+    filename = 'members[{}][{}].json'.format(id_group, str(datetime.now()).split('.')[0].replace(' ', '_'))
 
     bot.init()
     bot.load_page('https://www.facebook.com/groups/{}/members/'.format(id_group))
@@ -45,23 +44,23 @@ def get_members(id_group='5347104545'):
                     'name': data.text,
                     'url': 'https://www.facebook.com/{}'.format(id)
                 }
-                if member not in members:
-                    members.append(member)
-                    save_member(filename, member)
-        print("{} Members - {}".format(len(members), str(datetime.now() - start).split('.')[0]))
+                save_member(filename, member)
+        print("{} members [{}]".format(len(information), str(datetime.now() - start).split('.')[0]))
     format_file_json(filename)
 
 
 def save_member(filename, member):
-    with open(filename, 'a', encoding='utf8') as outfile:
-        json.dump([member], outfile, sort_keys=True, indent=4, ensure_ascii=False)
+    with open(filename, 'a') as outfile:
+        json.dump([member], outfile)
 
 
 def format_file_json(filename):
     with open(filename) as file:
-        data = json.loads(file.read().replace('\n][', ','))
+        data = json.loads(file.read().replace('][', ','))
+        unique_members = {each['id']: each for each in data}.values()
     with open(filename, 'w', encoding='utf8') as outfile:
-        json.dump(data, outfile, sort_keys=True, indent=4, ensure_ascii=False)
+        json.dump(list(unique_members), outfile, sort_keys=True, indent=4, ensure_ascii=False)
+        print("{} total members - {}".format(len(unique_members)))
 
 
 if __name__ == '__main__':
