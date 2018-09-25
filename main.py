@@ -48,11 +48,15 @@ def get_members(id_group='5347104545'):
                     members.append(member)
                     save_member(filename, member)
         print("{} Members - {}".format(len(members), str(datetime.now() - start).split('.')[0]))
+    format_file_json(filename)
 
 
 def save_member(filename, member):
     with open(filename, 'a', encoding='utf8') as outfile:
         json.dump([member], outfile, sort_keys=True, indent=4, ensure_ascii=False)
+
+
+def format_file_json(filename):
     with open(filename) as file:
         data = json.loads(file.read().replace('\n][', ','))
     with open(filename, 'w', encoding='utf8') as outfile:
@@ -63,3 +67,4 @@ if __name__ == '__main__':
     login_facebook()
     get_members()
     bot.close()
+    # format_file_json('')
