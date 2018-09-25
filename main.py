@@ -16,8 +16,7 @@ def login_facebook(username='lady.cris.16@hotmail.com', password='asu1053608972c
     bot.submit_form(element_password)
 
 
-# def get_members(id_group='5347104545'):
-def get_members(id_group='394799047335084'):
+def get_members(id_group='5347104545'):
     members = []
     active = True
     limit = 50
@@ -63,6 +62,7 @@ def remove_duplicates(filename):
 
 
 if __name__ == '__main__':
-    login_facebook()
-    get_members()
-    bot.close()
+    # login_facebook()
+    # get_members()
+    # bot.close()
+    remove_duplicates('members-2018-09-24 18:12:58.812634.json')
