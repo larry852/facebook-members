@@ -60,11 +60,12 @@ def format_file_json(filename):
         unique_members = {each['id']: each for each in data}.values()
     with open(filename, 'w', encoding='utf8') as outfile:
         json.dump(list(unique_members), outfile, sort_keys=True, indent=4, ensure_ascii=False)
-        print("{} total members - {}".format(len(unique_members)))
+        print("{} total members".format(len(unique_members)))
 
 
 if __name__ == '__main__':
     login_facebook()
+    # get_members('394799047335084')
     get_members()
     bot.close()
     # format_file_json('')
