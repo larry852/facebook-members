@@ -45,7 +45,7 @@ def get_members(id_group='5347104545'):
                     'url': 'https://www.facebook.com/{}'.format(id)
                 }
                 save_member(filename, member)
-        print("{} members [{}]".format(len(information), str(datetime.now() - start).split('.')[0]))
+        print("{} Members [{}]".format(len(information), str(datetime.now() - start).split('.')[0]))
     format_file_json(filename)
 
 
@@ -60,7 +60,7 @@ def format_file_json(filename):
         unique_members = {each['id']: each for each in data}.values()
     with open(filename, 'w', encoding='utf8') as outfile:
         json.dump(list(unique_members), outfile, sort_keys=True, indent=4, ensure_ascii=False)
-        print("{} total members".format(len(unique_members)))
+        print("[{}] Total members".format(len(unique_members)))
 
 
 if __name__ == '__main__':
