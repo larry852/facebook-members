@@ -25,7 +25,8 @@ def get_members(id_group='5347104545'):
     bot.init()
     bot.load_page('https://www.facebook.com/groups/{}/members/'.format(id_group))
 
-    while active:
+    # while active:
+    for x in range(1, 5):
         active = bot.scrolling_down_facebook(limit, '_60ri')
         limit += 50
 
@@ -43,26 +44,22 @@ def get_members(id_group='5347104545'):
                     'image': images[index].get_attribute('src'),
                     'url': 'https://www.facebook.com/{}'.format(id)
                 }
-                members.append(member)
-        save_members(filename, members)
-    remove_duplicates(filename)
+                if member not in members:
+                    members.append(member)
+                    save_member(filename, member)
+        print("{} Members".format(len(members)))
 
 
-def save_members(filename, data):
-    with open(filename, 'a') as outfile:
-        json.dump(data, outfile)
-
-
-def remove_duplicates(filename):
+def save_member(filename, member):
+    with open(filename, 'a', encoding='utf8') as outfile:
+        json.dump([member], outfile, sort_keys=True, indent=4, ensure_ascii=False)
     with open(filename) as file:
-        data = json.loads(file.read().replace('][', ','))
-        unique_members = {each['id']: each for each in data}.values()
+        data = json.loads(file.read().replace('\n][', ','))
     with open(filename, 'w', encoding='utf8') as outfile:
-        json.dump(list(unique_members), outfile, sort_keys=True, indent=4, ensure_ascii=False)
+        json.dump(data, outfile, sort_keys=True, indent=4, ensure_ascii=False)
 
 
 if __name__ == '__main__':
     login_facebook()
     get_members()
     bot.close()
-    # remove_duplicates('members-2018-09-24 18:12:58.812634.json')
