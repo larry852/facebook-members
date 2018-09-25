@@ -20,10 +20,9 @@ def get_members(id_group='5347104545'):
     start = datetime.now()
     members = []
     old_information = []
-    old_images = []
     active = True
     limit = 50
-    filename = 'members-{}.json'.format(datetime.now())
+    filename = 'members[{}][{}].json'.format(id_group, str(datetime.now()).split('.')[0])
 
     bot.init()
     bot.load_page('https://www.facebook.com/groups/{}/members/'.format(id_group))
@@ -36,10 +35,6 @@ def get_members(id_group='5347104545'):
         new_information = [item for item in information if item not in old_information]
         old_information = information
 
-        images = bot.get_elements_class_name('_s0')
-        new_images = [item for item in images if item not in old_images]
-        old_images = images
-
         for index, element in enumerate(new_information):
             data = bot.get_child_tag_name(element, 'a')
             ajaxify = data.get_attribute('ajaxify')
@@ -48,7 +43,6 @@ def get_members(id_group='5347104545'):
                 member = {
                     'id': id,
                     'name': data.text,
-                    'image': new_images[index].get_attribute('src'),
                     'url': 'https://www.facebook.com/{}'.format(id)
                 }
                 if member not in members:
