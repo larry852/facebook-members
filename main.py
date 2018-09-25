@@ -19,6 +19,8 @@ def login_facebook(username='lady.cris.16@hotmail.com', password='asu1053608972c
 def get_members(id_group='5347104545'):
     start = datetime.now()
     members = []
+    old_information = []
+    old_images = []
     active = True
     limit = 50
     filename = 'members-{}.json'.format(datetime.now())
@@ -31,9 +33,14 @@ def get_members(id_group='5347104545'):
         limit += 50
 
         information = bot.get_elements_class_name('_60ri')
-        images = bot.get_elements_class_name('_s0')
+        new_information = [item for item in information if item not in old_information]
+        old_information = information
 
-        for index, element in enumerate(information):
+        images = bot.get_elements_class_name('_s0')
+        new_images = [item for item in images if item not in old_images]
+        old_images = images
+
+        for index, element in enumerate(new_information):
             data = bot.get_child_tag_name(element, 'a')
             ajaxify = data.get_attribute('ajaxify')
             if ajaxify:
@@ -41,7 +48,7 @@ def get_members(id_group='5347104545'):
                 member = {
                     'id': id,
                     'name': data.text,
-                    'image': images[index].get_attribute('src'),
+                    'image': new_images[index].get_attribute('src'),
                     'url': 'https://www.facebook.com/{}'.format(id)
                 }
                 if member not in members:
