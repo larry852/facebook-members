@@ -17,6 +17,7 @@ def login_facebook(username='lady.cris.16@hotmail.com', password='asu1053608972c
 
 
 def get_members(id_group='5347104545'):
+    start = datetime.now()
     members = []
     active = True
     limit = 50
@@ -25,8 +26,7 @@ def get_members(id_group='5347104545'):
     bot.init()
     bot.load_page('https://www.facebook.com/groups/{}/members/'.format(id_group))
 
-    # while active:
-    for x in range(1, 5):
+    while active:
         active = bot.scrolling_down_facebook(limit, '_60ri')
         limit += 50
 
@@ -47,7 +47,7 @@ def get_members(id_group='5347104545'):
                 if member not in members:
                     members.append(member)
                     save_member(filename, member)
-        print("{} Members".format(len(members)))
+        print("{} Members - {}".format(len(members), str(datetime.now() - start).split('.')[0]))
 
 
 def save_member(filename, member):
