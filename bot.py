@@ -53,14 +53,13 @@ def save_screenshoot(filePath='/tmp/capture.png'):
     driver.save_screenshot(filePath)
 
 
-def scroll_down(times):
-    for x in range(0, times):
-        driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
-        time.sleep(wait_time)
+def scroll_down():
+    driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+    time.sleep(wait_time)
 
 
 def scrolling_down_facebook(main_element):
-    scroll_down(2)
+    scroll_down()
     return bool(driver.find_elements_by_class_name(main_element))
 
 

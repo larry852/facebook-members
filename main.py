@@ -19,7 +19,7 @@ def login_facebook(username='lady.cris.16@hotmail.com', password='asu1053608972c
 def get_members(id_group='5347104545'):
     start = datetime.now()
     count_members = 0
-    filename = 'members[{}][{}].json'.format(id_group, str(datetime.now()).split('.')[0].replace(' ', '_'))
+    filename = 'members/members[{}][{}].json'.format(id_group, str(datetime.now()).split('.')[0].replace(' ', '_'))
 
     bot.init()
     bot.load_page('https://www.facebook.com/groups/{}/members/'.format(id_group))
