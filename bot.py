@@ -79,6 +79,10 @@ def click(element):
     time.sleep(wait_time + 5)
 
 
+def remove_element(element):
+    driver.execute_script("var element = arguments[0];element.parentNode.removeChild(element);", element)
+
+
 def close():
     global driver
     driver.quit()
