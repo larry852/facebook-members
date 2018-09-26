@@ -18,19 +18,14 @@ def login_facebook(username='lady.cris.16@hotmail.com', password='asu1053608972c
 
 def get_members(id_group='5347104545'):
     start = datetime.now()
-    active = True
-    limit = 50
+    count_members = 0
     filename = 'members[{}][{}].json'.format(id_group, str(datetime.now()).split('.')[0].replace(' ', '_'))
 
     bot.init()
     bot.load_page('https://www.facebook.com/groups/{}/members/'.format(id_group))
 
-    while active:
-        active = bot.scrolling_down_facebook(limit, '_60ri')
-        limit += 50
-
+    while bot.scrolling_down_facebook('_60ri'):
         information = bot.get_elements_class_name('_60ri')
-
         for index, element in enumerate(information):
             data = bot.get_child_tag_name(element, 'a')
             ajaxify = data.get_attribute('ajaxify')
@@ -42,8 +37,9 @@ def get_members(id_group='5347104545'):
                     'url': 'https://www.facebook.com/{}'.format(id)
                 }
                 save_member(filename, member)
+                count_members += 1
             bot.remove_element(element.find_element_by_xpath('./../../../../..'))
-        print("{} Members [{}]".format(len(information), str(datetime.now() - start).split('.')[0]))
+        print("{} Members [{}]".format(count_members, str(datetime.now() - start).split('.')[0]))
     format_file_json(filename)
 
 

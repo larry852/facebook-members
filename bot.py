@@ -53,25 +53,27 @@ def save_screenshoot(filePath='/tmp/capture.png'):
     driver.save_screenshot(filePath)
 
 
-def scroll_down():
-    driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
-    time.sleep(wait_time)
+def scroll_down(times):
+    for x in range(0, times):
+        driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+        time.sleep(wait_time)
 
 
-def scrolling_down_facebook(limit, main_element):
-    old_page = driver.page_source
-    while True:
-        scroll_down()
-        try:
-            if limit and limit <= len(driver.find_elements_by_class_name(main_element)):
-                return True
-            new_page = driver.page_source
-            if new_page != old_page:
-                old_page = new_page
-            else:
-                return False
-        except Exception:
-            continue
+def scrolling_down_facebook(main_element):
+    scroll_down(2)
+    return bool(driver.find_elements_by_class_name(main_element))
+
+
+def get_page_source():
+    return driver.page_source
+
+
+def is_same_page(old_page):
+    new_page = driver.page_source
+    if new_page != old_page:
+        return False
+    else:
+        return True
 
 
 def click(element):
