@@ -3,7 +3,7 @@ import json
 from datetime import datetime
 
 
-def login_facebook(username='lady.cris.16@hotmail.com', password='asu1053608972cp'):
+def login_facebook(username, password):
     bot.init()
     initial_url = 'https://www.facebook.com/'
     login_user_element_xpath = '//*[@id="email"]'
@@ -16,7 +16,7 @@ def login_facebook(username='lady.cris.16@hotmail.com', password='asu1053608972c
     bot.submit_form(element_password)
 
 
-def get_members(id_group='5347104545'):
+def get_members(id_group):
     start = datetime.now()
     count_members = 0
     filename = 'members/members[{}][{}].json'.format(id_group, str(datetime.now()).split('.')[0].replace(' ', '_'))

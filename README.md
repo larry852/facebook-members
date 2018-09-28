@@ -19,5 +19,4 @@ virtualenv -p python3 env
 source env/bin/activate
 pip install -r requirements.txt
 python main.py -u USERNAME -p PASSWORD -g ID_GROUP
-python main.py -u lady.cris.16@hotmail.com -p asu1053608972cp -g 5347104545
 ```
