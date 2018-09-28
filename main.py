@@ -58,8 +58,14 @@ def format_file_json(filename):
 
 
 if __name__ == '__main__':
-    login_facebook()
-    # get_members('394799047335084')
-    get_members()
+    from argparse import ArgumentParser
+
+    parser = ArgumentParser()
+    parser.add_argument("-u", "--username", dest="username", help="username facebook login", required=True)
+    parser.add_argument("-p", "--password", dest="password", help="password facebook login", required=True)
+    parser.add_argument("-g", "--group", dest="group", help="id group facebook", required=True)
+    args = parser.parse_args()
+
+    login_facebook(args.username, args.password)
+    get_members(args.group)
     bot.close()
-    # format_file_json('')
