@@ -6,9 +6,7 @@ Get members of group facebook
 
 ### Chrome driver
 ```sh
-./install/install_chromedriver_lasted
-# tested version 2.38
-./install/install_chromedriver_2.38
+./install/install_chromedriver
 ```
 
 ## Run
